@@ -30,6 +30,7 @@ mod taker_inc_message_actor;
 mod to_sse_event;
 mod wallet;
 mod wire;
+mod blockchain_monitoring;
 
 const CONNECTION_RETRY_INTERVAL: Duration = Duration::from_secs(5);
 

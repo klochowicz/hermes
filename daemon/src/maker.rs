@@ -29,6 +29,7 @@ mod setup_contract_actor;
 mod to_sse_event;
 mod wallet;
 mod wire;
+mod blockchain_monitoring;
 
 #[derive(Database)]
 #[database("maker")]
