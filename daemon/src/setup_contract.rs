@@ -78,9 +78,10 @@ pub async fn new(
         payout_curve::calculate(
             cfd.order.price,
             cfd.quantity_usd,
-            params.maker().lock_amount,
-            (params.taker().lock_amount, cfd.order.leverage),
-        )?,
+            payout_curve::LongPosition::Taker,
+            cfd.order.leverage,
+        )?
+        .0,
     )]);
 
     let own_cfd_txs = create_cfd_transactions(
@@ -283,9 +284,10 @@ pub async fn roll_over(
         payout_curve::calculate(
             cfd.order.price,
             cfd.quantity_usd,
-            maker_lock_amount,
-            (taker_lock_amount, cfd.order.leverage),
-        )?,
+            payout_curve::LongPosition::Taker,
+            cfd.order.leverage,
+        )?
+        .0,
     )]);
 
     // unsign lock tx because PartiallySignedTransaction needs an unsigned tx
