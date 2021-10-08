@@ -75,13 +75,7 @@ pub async fn new(
 
     let payouts = HashMap::from_iter([(
         announcement.clone(),
-        payout_curve::calculate(
-            cfd.order.price,
-            cfd.quantity_usd,
-            payout_curve::LongPosition::Taker,
-            cfd.order.leverage,
-        )?
-        .0,
+        payout_curve::calculate(cfd.order.price, cfd.quantity_usd, cfd.order.leverage)?,
     )]);
 
     let own_cfd_txs = create_cfd_transactions(
@@ -281,13 +275,7 @@ pub async fn roll_over(
             id: announcement.id.0,
             nonce_pks: announcement.nonce_pks.clone(),
         },
-        payout_curve::calculate(
-            cfd.order.price,
-            cfd.quantity_usd,
-            payout_curve::LongPosition::Taker,
-            cfd.order.leverage,
-        )?
-        .0,
+        payout_curve::calculate(cfd.order.price, cfd.quantity_usd, cfd.order.leverage)?,
     )]);
 
     // unsign lock tx because PartiallySignedTransaction needs an unsigned tx
