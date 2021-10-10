@@ -15,7 +15,6 @@ use crate::{oracle, send_to_socket, setup_contract, wire};
 use anyhow::{Context as _, Result};
 use async_trait::async_trait;
 use bdk::bitcoin::secp256k1::schnorrsig;
-use cfd_protocol::secp256k1_zkp::SECP256K1;
 use futures::channel::mpsc;
 use futures::{future, SinkExt};
 use std::collections::HashMap;
@@ -357,10 +356,7 @@ impl Actor {
         let dlc = cfd.open_dlc().context("CFD was in wrong state")?;
 
         let proposal = self.get_settlement_proposal(order_id)?;
-        let (_tx, sighash) = setup_contract::close_transaction(&dlc, proposal)
-            .context("Unable to collaborative close transaction")?;
-
-        let sig_taker = SECP256K1.sign(&sighash, &dlc.identity);
+        let (_tx, sig_taker) = dlc.close_transaction(proposal)?;
 
         self.send_to_maker
             .do_send_async(wire::TakerToMaker::InitiateSettlement {

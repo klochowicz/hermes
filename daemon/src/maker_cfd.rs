@@ -15,8 +15,7 @@ use crate::{maker_inc_connections, monitor, oracle, setup_contract, wire};
 use anyhow::{Context as _, Result};
 use async_trait::async_trait;
 use bdk::bitcoin::secp256k1::schnorrsig;
-use bdk::bitcoin::PublicKey;
-use cfd_protocol::secp256k1_zkp::{self, Signature, SECP256K1};
+use cfd_protocol::secp256k1_zkp::Signature;
 use futures::channel::mpsc;
 use futures::{future, SinkExt};
 use std::collections::HashMap;
@@ -298,22 +297,8 @@ impl Actor {
         let cfd = load_cfd_by_order_id(order_id, &mut conn).await?;
         let dlc = cfd.open_dlc().context("CFD was in wrong state")?;
 
-        let (tx, sighash) = setup_contract::close_transaction(&dlc, proposal)
-            .context("Unable to collaborative close transaction")?;
-        let sig_maker = SECP256K1.sign(&sighash, &dlc.identity);
-
-        let maker_pk = PublicKey::new(secp256k1_zkp::PublicKey::from_secret_key(
-            SECP256K1,
-            &dlc.identity,
-        ));
-
-        let (_, lock_desc) = dlc.lock;
-        let spend_tx = cfd_protocol::finalize_spend_transaction(
-            tx,
-            &lock_desc,
-            (maker_pk, sig_maker),
-            (dlc.identity_counterparty, sig_taker),
-        )?;
+        let (tx, sig_maker) = dlc.close_transaction(proposal)?;
+        let spend_tx = dlc.finalize_spend_transaction((tx, sig_maker), sig_taker)?;
 
         self.wallet
             .try_broadcast_transaction(spend_tx)

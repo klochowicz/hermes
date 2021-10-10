@@ -15,7 +15,7 @@ use cfd_protocol::secp256k1_zkp::EcdsaAdaptorSignature;
 use cfd_protocol::{
     commit_descriptor, compute_adaptor_pk, create_cfd_transactions, interval, lock_descriptor,
     renew_cfd_transactions, secp256k1_zkp, spending_tx_sighash, Announcement, PartyParams,
-    PunishParams, TransactionExt,
+    PunishParams,
 };
 use futures::stream::FusedStream;
 use futures::{Sink, SinkExt, StreamExt};
@@ -239,29 +239,6 @@ pub async fn new(
         taker_lock_amount: params.taker().lock_amount,
         revoked_commit: Vec::new(),
     })
-}
-
-// Create a close transaction based on the current contract and a settlement proposals
-pub fn close_transaction(
-    dlc: &Dlc,
-    proposal: &crate::model::cfd::SettlementProposal,
-) -> Result<(Transaction, cfd_protocol::secp256k1_zkp::Message)> {
-    let (lock_tx, lock_desc) = &dlc.lock;
-    let (lock_outpoint, lock_amount) = {
-        let outpoint = lock_tx
-            .outpoint(&lock_desc.script_pubkey())
-            .expect("lock script to be in lock tx");
-        let amount = Amount::from_sat(lock_tx.output[outpoint.vout as usize].value);
-
-        (outpoint, amount)
-    };
-    cfd_protocol::close_transaction(
-        lock_desc,
-        lock_outpoint,
-        lock_amount,
-        (&dlc.maker_address, proposal.maker),
-        (&dlc.taker_address, proposal.taker),
-    )
 }
 
 pub async fn roll_over(
