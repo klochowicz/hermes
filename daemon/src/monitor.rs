@@ -383,7 +383,11 @@ where
 
                     tracing::trace!("{} subscriptions reached their monitoring target, {} remaining for this script", reached_monitoring_target.len(), remaining.len());
 
-                    occupied.insert(remaining);
+                    if remaining.is_empty() {
+                        occupied.remove();
+                    } else {
+                        occupied.insert(remaining);
+                    }
 
                     for (target_status, event) in reached_monitoring_target {
                         tracing::info!(%txid, target = %target_status, current = %status, "Bitcoin transaction reached monitoring target");
