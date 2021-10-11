@@ -684,6 +684,44 @@ mod tests {
         assert_eq!(recorder.events[1], refund_expired);
     }
 
+    #[tokio::test]
+    async fn update_for_a_script_only_results_in_event_for_corresponding_transaction() {
+        let _guard = tracing_subscriber::fmt()
+            .with_env_filter("trace")
+            .with_test_writer()
+            .set_default();
+
+        let (recorder_address, mut recorder_context) =
+            xtra::Context::<MessageRecordingActor>::new(None);
+        let mut recorder = MessageRecordingActor::default();
+
+        let cet_finality = Event::CetFinality(OrderId::default());
+        let refund_finality = Event::RefundFinality(OrderId::default());
+
+        let mut monitor = Actor::for_test(
+            recorder_address,
+            [
+                (
+                    (txid1(), script1()),
+                    vec![(ScriptStatus::finality(), cet_finality.clone())],
+                ),
+                (
+                    (txid2(), script1()),
+                    vec![(ScriptStatus::finality(), refund_finality.clone())],
+                ),
+            ],
+        );
+        monitor.client.include_tx(txid1(), 5);
+
+        recorder_context
+            .handle_while(&mut recorder, monitor.sync())
+            .await
+            .unwrap();
+
+        assert!(recorder.events.contains(&cet_finality));
+        assert!(!recorder.events.contains(&refund_finality));
+    }
+
     impl<A> Actor<A, stub::Client>
     where
         A: xtra::Actor + xtra::Handler<Event>,
@@ -706,6 +744,12 @@ mod tests {
 
     fn txid1() -> Txid {
         "1278ef8104c2f63c03d4d52bace29bed28bd5e664e67543735ddc95a39bfdc0f"
+            .parse()
+            .unwrap()
+    }
+
+    fn txid2() -> Txid {
+        "07ade6a49e34ad4cc3ca3f79d78df462685f8f1fbc8a9b05af51ec503ea5b960"
             .parse()
             .unwrap()
     }
