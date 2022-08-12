@@ -289,6 +289,24 @@ dependencies = [
  "async-trait",
  "bdk-macros",
  "bitcoin",
+ "js-sys",
+ "log",
+ "miniscript",
+ "rand 0.7.3",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
+name = "bdk"
+version = "0.21.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3a7dad109193db0d196e9149bb56ba991aacfc1e1a2cf400053358b75f6c2fb5"
+dependencies = [
+ "async-trait",
+ "bdk-macros",
+ "bitcoin",
  "electrum-client",
  "js-sys",
  "log",
@@ -305,7 +323,7 @@ name = "bdk-ext"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "bdk",
+ "bdk 0.21.0",
  "rand 0.6.5",
  "secp256k1",
 ]
@@ -891,7 +909,7 @@ dependencies = [
  "async-stream",
  "async-trait",
  "asynchronous-codec",
- "bdk",
+ "bdk 0.21.0",
  "bdk-ext",
  "btsieve",
  "bytes",
@@ -2028,7 +2046,7 @@ version = "0.1.1"
 source = "git+https://github.com/comit-network/maia?tag=0.1.1#e1354e9c0397326a99bb5068e3afbc8cf2e07a9d"
 dependencies = [
  "anyhow",
- "bdk",
+ "bdk 0.19.0",
  "itertools",
  "maia-core",
  "rand 0.6.5",
@@ -2042,7 +2060,7 @@ version = "0.2.0"
 source = "git+https://github.com/comit-network/maia?rev=fc6b78b98407b10b55f8cfd152062ad77f98cd9f#fc6b78b98407b10b55f8cfd152062ad77f98cd9f"
 dependencies = [
  "anyhow",
- "bdk",
+ "bdk 0.19.0",
  "itertools",
  "maia-core",
  "rand 0.6.5",
@@ -2056,7 +2074,7 @@ version = "0.1.1"
 source = "git+https://github.com/comit-network/maia?tag=0.1.1#e1354e9c0397326a99bb5068e3afbc8cf2e07a9d"
 dependencies = [
  "anyhow",
- "bdk",
+ "bdk 0.19.0",
  "bit-vec",
  "secp256k1-zkp",
  "thiserror",
@@ -2068,7 +2086,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-trait",
- "bdk",
+ "bdk 0.21.0",
  "clap",
  "conquer-once",
  "daemon",
@@ -2229,7 +2247,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-trait",
- "bdk",
+ "bdk 0.21.0",
  "bdk-ext",
  "conquer-once",
  "derivative",
@@ -4223,7 +4241,7 @@ version = "0.1.0"
 dependencies = [
  "anyhow",
  "async-stream",
- "bdk",
+ "bdk 0.21.0",
  "chashmap-async",
  "futures",
  "hex",
@@ -5675,7 +5693,7 @@ dependencies = [
  "anyhow",
  "async-trait",
  "asynchronous-codec",
- "bdk",
+ "bdk 0.21.0",
  "bdk-ext",
  "futures",
  "libp2p-core",
