@@ -901,7 +901,7 @@ dependencies = [
  "futures",
  "hkdf",
  "itertools",
- "libp2p-core",
+ "libp2p-core 0.33.0",
  "libp2p-noise",
  "libp2p-tcp",
  "maia 0.1.1",
@@ -1911,7 +1911,7 @@ dependencies = [
  "log",
  "multiaddr",
  "multihash",
- "multistream-select",
+ "multistream-select 0.11.0",
  "parking_lot 0.12.0",
  "pin-project",
  "prost 0.10.4",
@@ -1929,19 +1929,52 @@ dependencies = [
 ]
 
 [[package]]
-name = "libp2p-noise"
-version = "0.36.0"
+name = "libp2p-core"
+version = "0.37.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "cf2cee1dad1c83325bbd182a8e94555778699cec8a9da00086efb7522c4c15ad"
+checksum = "799676bb0807c788065e57551c6527d461ad572162b0519d1958946ff9e0539d"
+dependencies = [
+ "asn1_der",
+ "bs58",
+ "ed25519-dalek",
+ "either",
+ "fnv",
+ "futures",
+ "futures-timer",
+ "instant",
+ "lazy_static",
+ "log",
+ "multiaddr",
+ "multihash",
+ "multistream-select 0.12.0",
+ "parking_lot 0.12.0",
+ "pin-project",
+ "prost 0.11.0",
+ "prost-build 0.11.1",
+ "rand 0.8.4",
+ "rw-stream-sink",
+ "sha2 0.10.2",
+ "smallvec",
+ "thiserror",
+ "unsigned-varint",
+ "void",
+ "zeroize",
+]
+
+[[package]]
+name = "libp2p-noise"
+version = "0.40.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "048155686bd81fe6cb5efdef0c6290f25ad32a0a42e8f4f72625cf6a505a206f"
 dependencies = [
  "bytes",
  "curve25519-dalek 3.2.0",
  "futures",
  "lazy_static",
- "libp2p-core",
+ "libp2p-core 0.37.0",
  "log",
- "prost 0.10.4",
- "prost-build 0.10.4",
+ "prost 0.11.0",
+ "prost-build 0.11.1",
  "rand 0.8.4",
  "sha2 0.10.2",
  "snow",
@@ -1961,7 +1994,7 @@ dependencies = [
  "if-addrs",
  "ipnet",
  "libc",
- "libp2p-core",
+ "libp2p-core 0.33.0",
  "log",
  "socket2",
  "tokio",
@@ -2235,7 +2268,7 @@ dependencies = [
  "derivative",
  "hex",
  "itertools",
- "libp2p-core",
+ "libp2p-core 0.33.0",
  "maia 0.1.1",
  "maia 0.2.0",
  "maia-core",
@@ -2338,6 +2371,20 @@ name = "multistream-select"
 version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "363a84be6453a70e63513660f4894ef815daf88e3356bffcda9ca27d810ce83b"
+dependencies = [
+ "bytes",
+ "futures",
+ "log",
+ "pin-project",
+ "smallvec",
+ "unsigned-varint",
+]
+
+[[package]]
+name = "multistream-select"
+version = "0.12.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9bc41247ec209813e2fd414d6e16b9d94297dacf3cd613fa6ef09cd4d9755c10"
 dependencies = [
  "bytes",
  "futures",
@@ -3079,6 +3126,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "prost"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "399c3c31cdec40583bb68f0b18403400d01ec4289c383aa047560439952c4dd7"
+dependencies = [
+ "bytes",
+ "prost-derive 0.11.0",
+]
+
+[[package]]
 name = "prost-build"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3121,6 +3178,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "prost-build"
+version = "0.11.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f835c582e6bd972ba8347313300219fed5bfa52caf175298d860b61ff6069bb"
+dependencies = [
+ "bytes",
+ "heck 0.4.0",
+ "itertools",
+ "lazy_static",
+ "log",
+ "multimap",
+ "petgraph",
+ "prost 0.11.0",
+ "prost-types 0.11.1",
+ "regex",
+ "tempfile",
+ "which",
+]
+
+[[package]]
 name = "prost-derive"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3147,6 +3224,19 @@ dependencies = [
 ]
 
 [[package]]
+name = "prost-derive"
+version = "0.11.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7345d5f0e08c0536d7ac7229952590239e77abf0a0100a1b1d890add6ea96364"
+dependencies = [
+ "anyhow",
+ "itertools",
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "prost-types"
 version = "0.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3164,6 +3254,16 @@ checksum = "2d0a014229361011dc8e69c8a1ec6c2e8d0f2af7c91e3ea3f5b2170298461e68"
 dependencies = [
  "bytes",
  "prost 0.10.4",
+]
+
+[[package]]
+name = "prost-types"
+version = "0.11.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4dfaa718ad76a44b3415e6c4d53b17c8f99160dcb3a99b10470fce8ad43f6e3e"
+dependencies = [
+ "bytes",
+ "prost 0.11.0",
 ]
 
 [[package]]
@@ -4227,7 +4327,7 @@ dependencies = [
  "chashmap-async",
  "futures",
  "hex",
- "libp2p-core",
+ "libp2p-core 0.33.0",
  "maia 0.2.0",
  "maia-core",
  "model",
@@ -4475,7 +4575,7 @@ dependencies = [
  "hex",
  "http-api-problem",
  "itertools",
- "libp2p-core",
+ "libp2p-core 0.33.0",
  "model",
  "prometheus",
  "rocket",
@@ -5601,10 +5701,10 @@ dependencies = [
  "clap",
  "conquer-once",
  "futures",
- "libp2p-core",
+ "libp2p-core 0.33.0",
  "libp2p-noise",
  "libp2p-tcp",
- "multistream-select",
+ "multistream-select 0.11.0",
  "pin-project",
  "prometheus",
  "rand 0.8.4",
@@ -5678,7 +5778,7 @@ dependencies = [
  "bdk",
  "bdk-ext",
  "futures",
- "libp2p-core",
+ "libp2p-core 0.33.0",
  "maia 0.2.0",
  "maia-core",
  "model",
