@@ -2239,7 +2239,7 @@ dependencies = [
  "maia 0.1.1",
  "maia 0.2.0",
  "maia-core",
- "nalgebra 0.31.0",
+ "nalgebra 0.32.1",
  "ndarray",
  "ndarray_einsum_beta",
  "num",
@@ -2367,16 +2367,16 @@ dependencies = [
 
 [[package]]
 name = "nalgebra"
-version = "0.31.0"
+version = "0.32.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "18a89248335f688e4bd994e6d030fd7e185eb41769b8c435395075425e100ac6"
+checksum = "f6515c882ebfddccaa73ead7320ca28036c4bc84c9bcca3cc0cbba8efe89223a"
 dependencies = [
  "approx 0.5.0",
  "matrixmultiply",
  "num-complex",
  "num-rational",
  "num-traits",
- "simba 0.7.0",
+ "simba 0.8.0",
  "typenum",
 ]
 
@@ -4102,9 +4102,9 @@ dependencies = [
 
 [[package]]
 name = "simba"
-version = "0.7.0"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6fa406d0a270fc91831a28f705ba803ad05b971486af492317f1607390245b99"
+checksum = "50582927ed6f77e4ac020c057f37a268fc6aebc29225050365aacbb9deeeddc4"
 dependencies = [
  "approx 0.5.0",
  "num-complex",
