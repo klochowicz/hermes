@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: dprint/check@v2.1
+      - uses: dprint/check@v2.2
 
   # job to run change detection
   changes:
